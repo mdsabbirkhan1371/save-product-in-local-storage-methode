@@ -8,9 +8,8 @@ const addProduct=()=>{
     productFiled.value= ""
     productQuantity.value= ""
 
-    displayProduct(product,quantity)
-    saveInLocalStorage(product,quantity)
-    
+    displayProduct(product,quantity) 
+    saveInLocalStorage(product,quantity) 
 }
 
 // displayProduct
@@ -23,35 +22,31 @@ const displayProduct =(product,quantity)=>{
 
 }
 
-// first check the product in shopping cart local storage is stay yes or no;
+// get the cart in localStorage save before 
 
-const getStoredShoppingCart = ()=>{
+const getStoredShoppingCart=()=>{
     let cart = {}
-    const storedCart = localStorage.getItem('cart')
-    if(storedCart){
-        cart=JSON.parse(storedCart)
+    const savedCart = localStorage.getItem('cart')
+    if(savedCart){
+        cart=JSON.parse(savedCart)
     }
     return cart;
 }
 
-// saveInLocalStorage 
-
 const saveInLocalStorage =(product,quantity)=>{
     const cart = getStoredShoppingCart()
     cart[product]=quantity
-    const stringify = JSON.stringify(cart)
-    localStorage.setItem('cart',stringify)
+    const cartStringify= JSON.stringify(cart)
+    localStorage.setItem('cart',cartStringify)
 }
 
-// display after save in localStorage 
-
 const displayProductFromLocalStorage =()=>{
-    const savedCard = getStoredShoppingCart();
-    console.log(savedCard)
-    for(const product in savedCard){
-        const quantity = savedCard[product]
-        displayProduct(product,quantity)
+    const storedCart = getStoredShoppingCart()
+    console.log(storedCart)
+    for(const product in storedCart){
         
+        const quantity = storedCart[product]
+        displayProduct(product,quantity)
     }
 }
 displayProductFromLocalStorage()
